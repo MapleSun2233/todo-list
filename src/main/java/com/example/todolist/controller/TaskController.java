@@ -8,6 +8,7 @@ import com.example.todolist.dto.MarkTaskDto;
 import com.example.todolist.dto.UpdateTaskDto;
 import com.example.todolist.entity.Task;
 import com.example.todolist.service.TaskService;
+import com.example.todolist.vo.DefaultGroupTaskCountVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -112,5 +113,11 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public R deleteTask(@NotNull @Min(0) @PathVariable("id") Integer id) {
         return R.ok(taskService.removeById(id));
+    }
+
+    @ApiOperation("默认任务分类统计")
+    @GetMapping("/analysisDefaultGroupTask")
+    public R analysisDefaultGroupTask() {
+        return R.ok(taskService.analysisDefaultGroupTask());
     }
 }

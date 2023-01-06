@@ -29,3 +29,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### web-ui ###
+/web-ui/node_modules
+/web-ui/.idea
+/web-ui/.gitignore

@@ -18,20 +18,18 @@ import javax.validation.constraints.NotNull;
 public class UpdateTaskDto {
     @ApiModelProperty(value = "任务id", required = true)
     @NotNull
-    @Min(0)
+    @Min(-1)
     private Integer id;
     @ApiModelProperty(value = "分组id", required = true)
     @NotNull
     @Min(0)
     private Integer groupId;
-    @ApiModelProperty(value = "任务id", required = true)
+    @ApiModelProperty(value = "任务名", required = true)
     @NotNull
     @NotEmpty
     @Length(max = 20)
     private String name;
     @ApiModelProperty(value = "任务描述", required = true)
-    @NotNull
-    @NotEmpty
     @Length(max = 255)
     private String description;
     @ApiModelProperty(value = "是否完成", required = true)

@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.todolist.mapper.TaskMapper">
+    <resultMap id="defaultGroupTaskCountVo" type="com.example.todolist.vo.DefaultGroupTaskCountVo">
 
+    </resultMap>
+    <sql id="countSql">
+        select count(id) from t_task
+    </sql>
+    <select id="analysisDefaultGroupTask" resultMap="defaultGroupTaskCountVo">
+        select
+            (<include refid="countSql"/>) as "all",
+            (<include refid="countSql"/> where is_completed = 1) as "completed",
+            (<include refid="countSql"/> where is_completed = 0) as "uncompleted",
+            (<include refid="countSql"/> where is_star = 1) as "star"
+    </select>
+
+    <select id="countByGroupId" resultType="int">
+        select count(id) from t_task where group_id = #{groupId}
+    </select>
 </mapper>

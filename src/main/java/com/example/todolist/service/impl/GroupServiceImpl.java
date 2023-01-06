@@ -1,12 +1,13 @@
 package com.example.todolist.service.impl;
 
-import com.example.todolist.dto.AddGroupDto;
 import com.example.todolist.entity.Group;
 import com.example.todolist.mapper.GroupMapper;
 import com.example.todolist.service.GroupService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.todolist.vo.GroupVo;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,5 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements GroupService {
-
+    @Override
+    public List<GroupVo> listGroup() {
+        return baseMapper.listGroup();
+    }
 }

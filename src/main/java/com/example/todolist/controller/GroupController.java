@@ -1,11 +1,13 @@
 package com.example.todolist.controller;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.todolist.common.R;
 import com.example.todolist.common.ValidatorUtil;
-import com.example.todolist.dto.AddGroupDto;
 import com.example.todolist.entity.Group;
+import com.example.todolist.entity.Task;
 import com.example.todolist.service.GroupService;
+import com.example.todolist.service.TaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 /**
  * <p>
@@ -30,13 +34,15 @@ import javax.validation.constraints.NotNull;
 public class GroupController {
     @Resource
     private GroupService groupService;
+    @Resource
+    private TaskService taskService;
 
     @ApiOperation("增加分组")
-    @PostMapping
-    public R add(@Validated @RequestBody AddGroupDto dto) {
+    @ApiImplicitParam(required = true, value = "name", name = "分组名", dataTypeClass = String.class)
+    @PostMapping("/{name}")
+    public R add(@Null @NotEmpty @PathVariable("name") String name) {
         return groupService.save(Group.builder()
-                .name(dto.getName())
-                .iconId(dto.getIconId()).build())
+                .name(name).build())
                 ? R.ok() : R.fail();
     }
 
@@ -51,12 +57,14 @@ public class GroupController {
     @DeleteMapping("/{id}")
     public R delete(@NotNull @Min(0) @PathVariable("id") Integer id) {
         ValidatorUtil.validate(id, ObjectUtil::isNotNull);
-        return groupService.removeById(id) ? R.ok() : R.fail();
+        LambdaQueryWrapper<Task> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Task::getGroupId, id);
+        return groupService.removeById(id) && taskService.remove(queryWrapper) ? R.ok() : R.fail();
     }
 
     @ApiOperation("获取分组")
     @GetMapping
     public R list() {
-        return R.ok(groupService.list());
+        return R.ok(groupService.listGroup());
     }
 }

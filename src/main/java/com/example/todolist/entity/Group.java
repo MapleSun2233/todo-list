@@ -40,10 +40,5 @@ public class Group {
     @ApiModelProperty("分组名")
     private String name;
 
-    @NotNull
-    @Min(0)
-    @ApiModelProperty("图标id")
-    private Integer iconId;
-
 
 }

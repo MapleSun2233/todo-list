@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @since 2023/1/2
  */
 @SpringBootApplication
-@MapperScan("com.example.todolist.mapper")
-@EnableTransactionManagement
 public class TodoListApplication {
 
     public static void main(String[] args) {

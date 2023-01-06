@@ -4,7 +4,9 @@ import com.example.todolist.entity.Task;
 import com.example.todolist.mapper.TaskMapper;
 import com.example.todolist.service.TaskService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.todolist.vo.DefaultGroupTaskCountVo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -17,4 +19,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements TaskService {
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public DefaultGroupTaskCountVo analysisDefaultGroupTask() {
+        return baseMapper.analysisDefaultGroupTask();
+    }
 }

@@ -1,8 +1,10 @@
 package com.example.todolist.service;
 
-import com.example.todolist.dto.AddGroupDto;
 import com.example.todolist.entity.Group;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.todolist.vo.GroupVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-01-02
  */
 public interface GroupService extends IService<Group> {
+    /**
+     * 分组信息
+     * @return 分组信息
+     */
+    List<GroupVo> listGroup();
 }
