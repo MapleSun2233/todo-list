@@ -36,4 +36,3 @@ build/
 /web-ui/.gitignore
 /web-ui/dist
 
-/docker
