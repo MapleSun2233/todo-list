@@ -1,6 +1,7 @@
 package com.example.todolist.config;
 
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -18,6 +19,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 @EnableOpenApi
 public class SwaggerConfig {
+    @Value("${swagger.enable}")
+    private boolean enable;
     @Bean
     public Docket createRestDocket() {
         return new Docket(DocumentationType.OAS_30)
@@ -25,7 +28,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
-                .build();
+                .build().enable(enable);
     }
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()

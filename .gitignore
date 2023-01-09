@@ -34,3 +34,4 @@ build/
 /web-ui/node_modules
 /web-ui/.idea
 /web-ui/.gitignore
+/web-ui/dist
