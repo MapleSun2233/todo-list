@@ -35,3 +35,5 @@ build/
 /web-ui/.idea
 /web-ui/.gitignore
 /web-ui/dist
+
+/docker

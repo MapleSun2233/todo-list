@@ -1,9 +1,7 @@
 package com.example.todolist.controller;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.todolist.common.R;
-import com.example.todolist.common.ValidatorUtil;
 import com.example.todolist.entity.Group;
 import com.example.todolist.entity.Task;
 import com.example.todolist.service.GroupService;
@@ -56,10 +54,10 @@ public class GroupController {
     @ApiImplicitParam(name = "id", dataTypeClass = Integer.class, required = true)
     @DeleteMapping("/{id}")
     public R delete(@NotNull @Min(0) @PathVariable("id") Integer id) {
-        ValidatorUtil.validate(id, ObjectUtil::isNotNull);
         LambdaQueryWrapper<Task> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Task::getGroupId, id);
-        return groupService.removeById(id) && taskService.remove(queryWrapper) ? R.ok() : R.fail();
+        taskService.remove(queryWrapper);
+        return groupService.removeById(id) ? R.ok() : R.fail();
     }
 
     @ApiOperation("获取分组")

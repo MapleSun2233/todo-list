@@ -12,7 +12,7 @@ import javax.validation.ConstraintViolationException;
  * @since 2023/1/2
  **/
 @RestControllerAdvice
-public class AllExceptionHandler {
+public class CommonExceptionHandler {
     private static String VALID_ERROR_MSG = "参数校验异常！";
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public R methodArgumentNotValidException(MethodArgumentNotValidException e) {
@@ -24,7 +24,7 @@ public class AllExceptionHandler {
     }
     @ExceptionHandler(ValidException.class)
     public R validException(ValidException e) {
-        return R.fail(e.getMsg());
+        return R.fail(VALID_ERROR_MSG);
     }
 
     @ExceptionHandler(GeneralException.class)
